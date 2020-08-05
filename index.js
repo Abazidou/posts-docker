@@ -4,6 +4,7 @@ const lowDb = require("lowdb")
 const FileSync = require("lowdb/adapters/FileSync")
 const bodyParser = require("body-parser")
 const { nanoid } = require("nanoid")
+const path = require('path')
 
 const db = lowDb(new FileSync('db.json'))
 
@@ -13,6 +14,9 @@ const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
+
+app.set('views', './');
+app.set('view engine', 'ejs');
 
 const PORT = 4000;
 
@@ -29,6 +33,15 @@ app.post('/notes/new', (req, res) => {
   res.json({ success: true })
 })
 
-app.listen(PORT, ()=> {
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './index.html'))
+})
+
+app.get('/counter/:number', function (req, res) {
+  var names = ['Rk', 'Yass', 'Az']
+  res.render('./index.ejs', { counter: req.params.number, names: names })
+});
+
+app.listen(PORT, () => {
   console.log(`Backend is running on http://localhost:${PORT}`)
 })
