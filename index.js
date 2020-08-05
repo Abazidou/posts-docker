@@ -44,6 +44,6 @@ app.get('/counter/:number', function (req, res) {
   res.render('./index.ejs', { counter: req.params.number, names: names })
 });
 
-app.listen(PORT || 4000, HOST, () => {
+app.listen((PORT || 4000), HOST, () => {
   console.log(`Backend is running on http://localhost:${PORT}`)
 })
