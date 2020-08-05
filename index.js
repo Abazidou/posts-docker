@@ -18,6 +18,8 @@ app.use(bodyParser.json())
 app.set('views', './');
 app.set('view engine', 'ejs');
 
+// alternate localhost and the port Heroku assigns to $PORT
+const HOST = '0.0.0.0';
 const PORT = 4000;
 
 app.get('/notes', (req, res) => {
@@ -42,6 +44,6 @@ app.get('/counter/:number', function (req, res) {
   res.render('./index.ejs', { counter: req.params.number, names: names })
 });
 
-app.listen(PORT, () => {
+app.listen(PORT || 4000, HOST, () => {
   console.log(`Backend is running on http://localhost:${PORT}`)
 })
